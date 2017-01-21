@@ -1,6 +1,6 @@
 wbijam na gita
 {
 	Nowy;
-	Nowy2;
+	Now
 }
 Test 1
