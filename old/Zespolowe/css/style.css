@@ -1,0 +1,152 @@
+
+body{
+background-color: #f6f1ed;
+font-family: 'Lato';
+margin: 0px;
+}
+
+.strona{
+	max-width:630px;
+	width: 100%;
+	margin: 30px auto 60px auto;
+}
+
+.wydarzenie
+{
+	width: 100%;
+	box-shadow: 1px 1px 2px #888888;
+	background-color: #30231d;
+	color: #f6f1ed;
+}
+ 
+.headerwydarzenie
+{
+	height: 80px;
+	min-height: 30px;
+	width: 100%;
+	position: relative;
+	align-items: stretch;
+	float: left;
+	padding: 5px;
+}
+
+.headerwydarzenie .profiloweimg{
+    border-radius: 50%;
+    overflow: hidden;
+    height: 120%;
+    width: auto;
+    margin: auto;
+    margin-top: 1%; 
+    margin-left: 1%;
+    float: left;
+}
+
+.wydarzenie .headerwydarzenie p
+{
+	background-color: #30231d;
+	float: left;
+	padding-left: 5px;
+	font-size: 3em;
+	margin: 0px;
+	padding: 0em;
+}
+ 
+.wydarzenie img
+{
+    width: 100%;
+}
+
+.wydarzenie .opis{
+	background-color: #f6f1ed;
+	color: #30231d;
+	font-size: 1em;
+	padding: 1em;
+}
+
+.paneldolny{
+	position: fixed;
+	width: inherit;
+	max-width:inherit;
+	height: 50px;
+	box-shadow: 1px 1px 10px #000;
+	background-color: #30231d;
+	bottom: 0px;
+}
+.paneldolny div:first-child{
+	border-left-style: none;
+}
+.paneldolny div{
+	float: left;
+	width: 24.33333%;
+	border-left-style: solid;
+	border-color: #f6f1ed;
+	border-width: 1%;
+}
+.paneldolny img{
+	width:auto;
+	height:100%;
+	display: block;
+    margin: 0 auto;
+}
+.logowanie{
+	background-color: #f6f1ed;
+	color: #30231d;
+	font-size: 1em;
+	padding: 1em;
+	box-shadow: 1px 1px 2px #888888;
+}
+
+.logowanie p{
+	text-align:center;
+	margin-bottom: 5px;
+}
+.logowanie input, .button{
+	width:50%;
+	margin-left:25%;
+	margin-bottom: 5px;
+	padding: 10px 0px 10px 0px;
+	font-size: 16px;
+}
+
+.button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.grupuj{
+	width: 100%;
+	background-color: #30231d;
+	box-shadow: 1px 1px 10px #000;
+}
+
+.grupuj >p{
+	text-align:center;
+	font-size: 3em;
+	color: #f6f1ed;
+	margin-bottom:0;
+}
+
+.text{
+	width:50%;
+	max-width:50%;
+	margin-left:25%;
+}
+
+.wylogujButton{
+	width:100%;
+	background-color: #008CBA;
+	border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+	padding: 10px 0px 10px 0px;
+}
