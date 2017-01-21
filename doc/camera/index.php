@@ -3,21 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Test</title>
-	
 </head>
-
-<body>
-<style>
+	<body>
+	<style>
 	label.cameraButton {
-  margin: 1em 0;
-
-  /* Styles to make it look like a button */
-  padding: 0.5em;
-  border: 2px solid #666;
-  border-color: #EEE #CCC #CCC #EEE;
-  background-color: #DDD;
-  width:50 px;
-}
+		margin: 1em 0;
+		padding: 0.5em;
+		border: 2px solid #666;
+		border-color: #EEE #CCC #CCC #EEE;
+		background-color: #DDD;
+		width:50 px;
+	}
 
 /* Look like a clicked/depressed button */
 label.cameraButton:active {
@@ -27,9 +23,7 @@ label.cameraButton:active {
     visibility: hidden;
 	width:50 px;
 }
-#siema {
-    width:50 px;
-}
+
 /* This is the part that actually hides the 'Choose file' text box for camera inputs */
 label.cameraButton input[accept*="camera"] {
   display: none;
