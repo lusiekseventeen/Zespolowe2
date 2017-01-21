@@ -1,6 +1,2 @@
 wbijam na gita
-{
-	Nowy;
-	Now
-}
-Test 1
+
