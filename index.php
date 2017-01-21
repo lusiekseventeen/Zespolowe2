@@ -1,1 +1,0 @@
-super jednak nie jazdaaaa
