@@ -6,9 +6,10 @@ margin: 0px;
 }
 
 .strona{
-	max-width:630px;
+	max-width: 800px;
 	width: 100%;
 	margin: 30px auto 60px auto;
+	font-size: 3em;
 }
 
 .wydarzenie
@@ -45,7 +46,6 @@ margin: 0px;
 {
 	background-color: #30231d;
 	float: left;
-	padding-left: 5px;
 	font-size: 3em;
 	margin: 0px;
 	padding: 0em;
@@ -67,7 +67,7 @@ margin: 0px;
 	position: fixed;
 	width: inherit;
 	max-width:inherit;
-	height: 50px;
+	height: 2em;
 	box-shadow: 1px 1px 10px #000;
 	background-color: #30231d;
 	bottom: 0px;
@@ -91,7 +91,6 @@ margin: 0px;
 .logowanie{
 	background-color: #f6f1ed;
 	color: #30231d;
-	font-size: 1em;
 	padding: 1em;
 	box-shadow: 1px 1px 2px #888888;
 }
@@ -101,11 +100,9 @@ margin: 0px;
 	margin-bottom: 5px;
 }
 .logowanie input, .button{
-	width:50%;
-	margin-left:25%;
+	width:100%;
+	font-size: 1em;
 	margin-bottom: 5px;
-	padding: 10px 0px 10px 0px;
-	font-size: 16px;
 }
 
 .button {
@@ -115,8 +112,9 @@ margin: 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
     cursor: pointer;
+	font-size: 1em;
+	width:100%;
 }
 
 .grupuj{
@@ -127,15 +125,16 @@ margin: 0px;
 
 .grupuj >p{
 	text-align:center;
-	font-size: 3em;
 	color: #f6f1ed;
 	margin-bottom:0;
+	padding:0;
 }
 
 .text{
-	width:50%;
-	max-width:50%;
-	margin-left:25%;
+	width:100%;
+	max-width:100%;
+	margin-bottom: 5px;
+	font-size: 1em;
 }
 
 .wylogujButton{
@@ -146,7 +145,6 @@ margin: 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
     cursor: pointer;
 	padding: 10px 0px 10px 0px;
 }

@@ -10,7 +10,6 @@ $HEADER =
 </head>
 <body>
 	<div class='strona'>
-	<a href = 'wyloguj.php' class='wylogujButton' >Wyloguj</a>
 EOT;
 
 $FOOTER = <<<EOT
