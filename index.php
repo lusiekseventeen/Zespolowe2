@@ -1,1 +1,1 @@
-super jazda
+super jednak nie jazda
