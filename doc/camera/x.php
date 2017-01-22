@@ -12,13 +12,15 @@
 <input type="file" capture="camera" accept="image/*">
 
 <h1>test 2 (capture in acc)</h1>
-<input type="file" accept="image/*" capture="camera">
+<button onclick="document.getElementById('filestrue').click()">Dawaj zdjecie</button>
+<input id="zdjeciekurde" type="file" accept="image/*" capture="camera" style="display:none">
+
 
 <h1>test 3 (capture bool)</h1>
-<input type="file" accept="image/*" capture value="Zdjęcie">
+<input type="file" accept="image/*" capture >
 
 <h1>test 4 (capture bool, video)</h1>
-<input type="file" accept="video/*" capture >
+<input type="file" accept="video/*" capture="camcorder" >
 
 </body>
 </html>

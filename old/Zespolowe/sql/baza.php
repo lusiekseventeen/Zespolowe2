@@ -23,7 +23,7 @@ class Baza{
 		return $result->num_rows!==0;
 	}
 	
-	function tagowanie($usr, $tags){
+	function tagowanieUzyt($usr, $tags){
 		foreach ($tags as &$tag) {
 			$result = $this->DB->query("SELECT * FROM `tag` WHERE nazwa like '".$tag."'");
 			if($result->num_rows===0){
@@ -32,6 +32,18 @@ class Baza{
 			}
 			$row1 = $result->fetch_assoc();
 			$this->DB->query("INSERT INTO `relacja_tag_uzytkownik`(`uzytkownik_id`, `tag_id`) VALUES (".$usr.",".$row1['id'].")");
+		}
+	}
+	
+	function tagowanieEvent($event, $tags){
+		foreach ($tags as &$tag) {
+			$result = $this->DB->query("SELECT * FROM `tag` WHERE nazwa like '".$tag."'");
+			if($result->num_rows===0){
+				$result = $this->DB->query("INSERT INTO `tag`(`nazwa`) VALUES ('".$tag."')");
+				$result = $this->DB->query("SELECT * FROM `tag` WHERE nazwa like '".$tag."'");
+			}
+			$row1 = $result->fetch_assoc();
+			$this->DB->query("INSERT INTO `relacja_event_tag`(`	event_id`, `tag_id`) VALUES (".$event.",".$row1['id'].")");
 		}
 	}
 	
@@ -88,7 +100,22 @@ class Baza{
 	function getEventsUserTagsList($usrID){
 		return $this->DB->query("Select event.* from event INNER JOIN relacja_event_tag ON event.id = relacja_event_tag.event_id INNER JOIN relacja_tag_uzytkownik ON relacja_tag_uzytkownik.tag_id = relacja_event_tag.tag_id where relacja_tag_uzytkownik.uzytkownik_id = ".$usrID);
 	}
-	function stworzEvent(){
+	function stworzEvent($usrID, $tag, $datazak, $opis, $zdje){		
+		$tag = $this->filtruj($tag);
+		$datazak = $this->filtruj($datazak);
+		$opis = $this->filtruj($opis);
+		if($tag==="" || $datazak==="" || $opis==="" ){
+			return [false,"Wszystkie pola są wymagane"];
+		}
+		$x = $this->DB->query("INSERT INTO `event`(`foto_url`, `uzytkownik_id`, `opis`, `data_utowrzenia`, `data_zakonczenia`, `czy_zakonczone`, `czy_sponsorowane`) VALUES ('".$zdje."',".$usrID.",'".$opis."','".Date("Y-m-d H:i:s")."','".$datazak."',0,0)");
+		if(!$x)
+			return [false, "blad bazy"];
+		else{
+			$id = $this->DB->insert_id;
+			$tags = $this->getTags($tag);
+			$this->tagowanieEvent($id, $tags);
+		}
+		
 		
 	}
 	
