@@ -1,10 +1,10 @@
  header{
- 	padding-top: 30px;
+ 	padding-top: 20px;
  -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   border: none;
-  font: normal normal bold 72px/normal "Atomic Age", Helvetica, sans-serif;
+  font: normal normal bold 60px/normal "Atomic Age", Helvetica, sans-serif;
   color: rgb(64, 126, 196);
   text-align: center;
   -o-text-overflow: clip;
@@ -16,7 +16,8 @@
   transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
-label {
+
+.loginLabel {
 
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -34,21 +35,41 @@ label {
   transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1);
   text-align: center;
 }
-form{
-	text-align: center;
-	  padding-top: 60px;
+
+.registrationLabel {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border: none;
+  font: normal normal bold 30px/normal "Atomic Age", Helvetica, sans-serif;
+  color: rgb(64, 126, 196);
+  text-align: center;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  text-shadow: 1px 1px 0 rgb(77,162,252) , -1px -1px 0 rgb(77,162,252) , 1px -1px 0 rgb(77,162,252) , -1px 1px 0 rgb(77,162,252) , 4px 4px 8px rgb(44,88,137) , -4px 4px 8px rgb(44,88,137) , 4px -4px 8px rgb(44,88,137) , -4px -4px 8px rgb(44,88,137) ;
+  -webkit-transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1);
+  -moz-transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1);
+  -o-transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1);
+  transition: all 500ms cubic-bezier(0.42, 0, 0.58, 1);
+  text-align: center;
 }
 
-input[type=text] {
-   margin-top: 20px;
-   margin-bottom: 20px;
+form{
+	text-align: center;
+	  padding-top: 40px;
+}
+
+input[type=text],input[type='password'] {
+   margin-top: 10px;
+   margin-bottom: 10px;
+   text-align: center;
    display: inline-block;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   padding: 6px 20px;
   border: none;
-  -webkit-border-radius: 32px / 54px;
+  -webkit-border-radius: 32px / 40px;
   border-radius: 32px / 54px;
   font: normal 18px/normal "Coda", Helvetica, sans-serif;
   color: rgba(0,142,198,1);
@@ -64,7 +85,12 @@ input[type=text] {
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
 }
 
-.loginButton {
+input[type=radio]{
+  margin-top:30px;
+  margin-left: 10px;
+}
+
+.Button {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -88,7 +114,7 @@ input[type=text] {
   transition: background-color 0.3s cubic-bezier(0, 0, 0, 0), color 0.3s cubic-bezier(0, 0, 0, 0), width 0.3s cubic-bezier(0, 0, 0, 0), border-width 0.3s cubic-bezier(0, 0, 0, 0), border-color 0.3s cubic-bezier(0, 0, 0, 0);
 }
 
-.loginButton:hover {
+.Button:hover {
   border: 2px solid rgba(255,255,255,1);
   color: rgba(255,255,255,1);
   background: rgb(64, 126, 196);
@@ -100,13 +126,47 @@ input[type=text] {
 	margin-top:20px;
 }
 
-
-html { 
-  background: url("../Image/background.jpg") no-repeat center center fixed; 
+#Layout{
+  position: relative;
+  background: url('../Image/background.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow:hidden;
+    z-index:-1; 
+}
+#Layout:after{
+
+}
+
+#Registration{
+  background: url('../Image/background.png') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow:hidden;
+    z-index:-1; 
+}
+
+html{ 
+    min-height:100%;/* make sure it is at least as tall as the viewport */
+    position:relative;
+}
+
+body{
+    height:100%; /* force the BODY element to match the height of the HTML element */
 }
 
 .facebookButton {
@@ -136,3 +196,93 @@ display: inline-block;
   -o-transition: top 50ms cubic-bezier(0.42, 0, 0.58, 1);
   transition: top 50ms cubic-bezier(0.42, 0, 0.58, 1);
 }
+
+#footer{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #e3effd;
+  height:10%
+}
+
+#user{
+  background: url("../Image/User.png") no-repeat center;
+  width: 20%;
+  height: 100%;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  float: left;
+  display: block;
+  border:none;
+  opacity: 0.2;
+}
+
+#addPhoto{
+  background: url("../Image/addPhoto.png")no-repeat center;
+  width: 20%;
+  height: 100%;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  border:none;
+  float: left;
+  display: block;
+  opacity: 0.2;
+
+}
+#home{
+  background: url("../Image/Home.png")no-repeat center;
+  width: 20%;
+  height: 100%;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  border:none;
+  float: left;
+  display: block;
+  opacity: 0.2;
+}
+#search{
+  background: url("../Image/Search.png")no-repeat center;
+  width: 20%;
+  height: 100%;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  border:none;
+  float: left;
+  display: block;
+  opacity: 0.2;
+}
+#likes{
+  background: url("../Image/Likes.png")no-repeat center;
+  width: 20%;
+  height: 100%;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  border:none;
+  float: left;
+  display: block;
+  opacity: 0.2;
+}
+#likes:active,#search:active,#home:active,#addPhoto:active,#user:active {
+  opacity: 1.0
+}
+
+ul li img {
+    max-width: 100%;
+    height: auto;      
+}
+
+ ul{height:600px; width:100%;}
+ul{overflow:hidden; overflow-y:scroll;}
+
+
