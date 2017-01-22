@@ -43,7 +43,7 @@ class Baza{
 				$result = $this->DB->query("SELECT * FROM `tag` WHERE nazwa like '".$tag."'");
 			}
 			$row1 = $result->fetch_assoc();
-			$this->DB->query("INSERT INTO `relacja_event_tag`(`	event_id`, `tag_id`) VALUES (".$event.",".$row1['id'].")");
+			$this->DB->query("INSERT INTO `relacja_event_tag`(`event_id`, `tag_id`) VALUES (".$event.",".$row1['id'].")");
 		}
 	}
 	
@@ -75,7 +75,7 @@ class Baza{
 		$this->DB->query("INSERT INTO uzytkownik (login, haslo, opis, facebook_link, typ) VALUES ('".$login."', '".$pass."', '".$hashtags."', '".$fl."',".$typ.")");
 		$result= $this->DB->query("SELECT * FROM uzytkownik WHERE login='".$login."'");
 		$row1 = $result->fetch_assoc();
-		$this->tagowanie($row1['id'], $tags);
+		$this->tagowanieUzyt($row1['id'], $tags);
 
 		
 		return [true, $login, $row1['id']];		
@@ -115,10 +115,13 @@ class Baza{
 			$tags = $this->getTags($tag);
 			$this->tagowanieEvent($id, $tags);
 		}
-		
-		
 	}
-	
+	function getWolneTagi($userId){
+		return $this->DB->query("SELECT * FROM tag WHERE tag.id NOT IN (SELECT tag.id FROM tag INNER JOIN relacja_tag_uzytkownik ON tag.id = relacja_tag_uzytkownik.tag_id WHERE relacja_tag_uzytkownik.uzytkownik_id = ".$userId.")");
+	}
+	function joinUsetToTag($user, $tag){
+		$this->DB->query("INSERT INTO `relacja_tag_uzytkownik`(`uzytkownik_id`, `tag_id`) VALUES (".$user.",".$tag.")");
+	}
 	
 	
 	

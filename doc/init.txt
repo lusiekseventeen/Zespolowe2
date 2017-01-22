@@ -1,4 +1,4 @@
 1. instalacja toritoise https://www.youtube.com/watch?v=v1kFw2PuUpg
 	https://github.com/kamaz08/Zespolowe2
 2. npm, node - https://nodejs.org/en/
-3. 
+3. php.ini - upload_max_filesize=20M - maksymalny rozmiar pliku 

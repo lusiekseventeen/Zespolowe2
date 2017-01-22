@@ -64,6 +64,7 @@ margin: 0px;
 }
 
 .paneldolny{
+	z-index:1000;
 	position: fixed;
 	width: inherit;
 	max-width:inherit;
@@ -71,6 +72,11 @@ margin: 0px;
 	box-shadow: 1px 1px 10px #000;
 	background-color: #30231d;
 	bottom: 0px;
+}
+.stopkaEvent:{
+	float: left;
+	width: 100%;
+	background-color: blue;
 }
 .paneldolny div:first-child{
 	border-left-style: none;

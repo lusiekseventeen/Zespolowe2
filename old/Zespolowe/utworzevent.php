@@ -27,7 +27,7 @@ $FORM2 = <<<EOT
 					<p><b>#Tag(maksymalnie 3):</b></p><input type="text" name="tag">
 					<p><b>Data zakończenia:</b></p><input type="datetime-local" name="datazak">
 					<p><b>Opis:</b></p><textarea class='text' rows="4" cols="50" name="opis" form="usrform" ></textarea>
-					<input type="file" accept="image/*" capture="camera" name="zdjecie">
+					<input type="file" accept="image/*|video/*" capture="camera" name="zdjecie">
 					<input class='button'  type="submit" value="Utwórz" name="utworz">
 				</form>
 EOT;
@@ -45,6 +45,7 @@ if(isset($_POST['utworz'])){
     $imageerror = $_FILES['zdjecie']['error'];
     $imagetemp = $_FILES['zdjecie']['tmp_name'];
     $imagePath = "uploads/".$_SESSION['login']."/";
+	echo $imageerror;
 	if($imageerror == 0){
 		if(!file_exists ( "uploads/".$_SESSION['login'] )){
 			mkdir("uploads/".$_SESSION['login']);
@@ -54,10 +55,7 @@ if(isset($_POST['utworz'])){
 			 $imagename = "0".$imagename;
 		}
 		if(is_uploaded_file($imagetemp)) {
-			if(move_uploaded_file($imagetemp, $imagePath . $imagename)) {
-				echo "Sussecfully uploaded your image.";
-			}
-			else {
+			if(!move_uploaded_file($imagetemp, $imagePath . $imagename)) {
 				echo "Failed to move your image.";
 			}
 		}
@@ -68,7 +66,7 @@ if(isset($_POST['utworz'])){
 		$B = new Baza();
 		$x = $B->stworzEvent($_SESSION['id'], $_POST['tag'], $_POST['datazak'],$_POST['opis'],$imagePath.$imagename, null);
 		
-		//header("Location: twojprofil.php");
+		header("Location: twojprofil.php");
 	}else{
 		echo "Brak zdjecia";
 	}

@@ -20,7 +20,7 @@ EOT;
 
 $TWOJE = <<<EOT
 <div class='grupuj' id='gr'>
-	<p>Popularne #Tagi po ilość użytkowników</p>
+	<p>Dostepne #Tagi</p>
 	{{TWOJE}}
 </div>
 EOT;
@@ -31,19 +31,19 @@ $UDZIAL = <<<EOT
 {{UDZIAL}}
 </div>
 EOT;
+require_once("sql/baza.php");
+$B = new Baza(); 
+if(isset($_POST['dodaj'])){
+	$B->joinUsetToTag($_SESSION['id'],$_POST['tag']);
+}
+
+
 
 echo $HEADER;
 echo $paneldolny;
-require_once("sql/baza.php");
-$B = new Baza(); 
-$result=$B->getEventsStworzonychList($_SESSION['id']);
-$ALLYOUR = generateWydarzenia($result);
+
+$result=$B->getWolneTagi($_SESSION['id']);
+$ALLYOUR = generateTagList($result);
 echo (string) str_replace("{{TWOJE}}", (string) $ALLYOUR,  $TWOJE);
-
-$result=$B->getEventsUdzialList($_SESSION['id']);
-$ALLYOUR = generateWydarzenia($result);
-echo (string) str_replace("{{UDZIAL}}", (string) $ALLYOUR,  $UDZIAL);
-
-
 echo $FOOTER;
 ?>	

@@ -29,7 +29,7 @@ echo $HEADER;
 echo $paneldolny;
 require_once("sql/baza.php");
 $B = new Baza(); 
-$result=$B->getEventsStworzonychList($_SESSION['id']);
+$result=$B->getEventsUserTagsList($_SESSION['id']);
 $ALLYOUR = generateWydarzenia($result);
 echo (string) str_replace("{{HTAG}}", (string) $ALLYOUR,  $HTAG);
 echo $FOOTER;
