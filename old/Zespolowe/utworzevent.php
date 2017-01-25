@@ -28,6 +28,7 @@ $FORM2 = <<<EOT
 					<p><b>Data zakończenia:</b></p><input type="datetime-local" name="datazak">
 					<p><b>Opis:</b></p><textarea class='text' rows="4" cols="50" name="opis" form="usrform" ></textarea>
 					<input type="file" accept="image/*|video/*" capture="camera" name="zdjecie">
+					<input type="hidden" value="{{IDEVENT}} "name="zdjecie">
 					<input class='button'  type="submit" value="Utwórz" name="utworz">
 				</form>
 EOT;
