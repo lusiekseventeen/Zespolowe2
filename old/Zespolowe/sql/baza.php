@@ -1,4 +1,4 @@
-<?php
+	<?php
 class Baza{
 	function __construct(){ 
 		$servername = "localhost";
@@ -14,7 +14,7 @@ class Baza{
 	function filtruj($zmienna){
 		if(get_magic_quotes_gpc())
 			$zmienna = stripslashes($zmienna);
-		return mysql_real_escape_string(htmlspecialchars(trim($zmienna)));
+		return htmlspecialchars(trim($zmienna));
 	}
 	
 	function isLoginInDB($Login){
@@ -95,7 +95,7 @@ class Baza{
 		return $this->DB->query("SELECT * FROM event WHERE uzytkownik_id=".$usrID." ORDER BY data_utowrzenia DESC");
 	}
 	function getEventsUdzialList($usrID){
-		return $this->DB->query("Select * from event INNER JOIN relacja_event_uzytkownik ON event.id = relacja_event_uzytkownik.event_id where relacja_event_uzytkownik.uzytkownik_id = ".$usrID);
+		return $this->DB->query("Select event.* from event INNER JOIN relacja_event_uzytkownik ON event.id = relacja_event_uzytkownik.event_id where relacja_event_uzytkownik.uzytkownik_id = ".$usrID);
 	}
 	function getEventsUserTagsList($usrID){
 		return $this->DB->query("Select event.* from event INNER JOIN relacja_event_tag ON event.id = relacja_event_tag.event_id INNER JOIN relacja_tag_uzytkownik ON relacja_tag_uzytkownik.tag_id = relacja_event_tag.tag_id where relacja_tag_uzytkownik.uzytkownik_id = ".$usrID);
@@ -116,11 +116,34 @@ class Baza{
 			$this->tagowanieEvent($id, $tags);
 		}
 	}
+
+	function dodajZgloszenie($usrID, $eventID, $com, $data, $zdje){		
+		$com = $this->filtruj($com);
+		echo $usrID;
+		echo $com;
+		echo $data;
+		echo $zdje;
+		if($com===""){
+			return [false,"Wszystkie pola są wymagane"];
+		}
+		$x = $this->DB->query("INSERT INTO `relacja_event_uzytkownik`(`uzytkownik_id`, `event_id`, `photo_url`, `comment`) VALUES (".$usrID.",".$eventID.",'".$zdje."','".$com."')");
+		if(!$x)
+			return [false, "blad bazy"];
+	}
+
 	function getWolneTagi($userId){
 		return $this->DB->query("SELECT * FROM tag WHERE tag.id NOT IN (SELECT tag.id FROM tag INNER JOIN relacja_tag_uzytkownik ON tag.id = relacja_tag_uzytkownik.tag_id WHERE relacja_tag_uzytkownik.uzytkownik_id = ".$userId.")");
 	}
 	function joinUsetToTag($user, $tag){
 		$this->DB->query("INSERT INTO `relacja_tag_uzytkownik`(`uzytkownik_id`, `tag_id`) VALUES (".$user.",".$tag.")");
+	}
+
+	function getSingleEvent($id){
+		return $this->DB->query("SELECT event.uzytkownik_id, uzytkownik.login, event.opis, event.foto_url, event.data_zakonczenia FROM event, uzytkownik WHERE event.id = ".$id." AND event.uzytkownik_id = uzytkownik.id");
+	}
+
+	function getApplies($id){
+		return $this->DB->query("SELECT * FROM `relacja_event_uzytkownik` WHERE event_id = ".$id." AND status = 0 ORDER BY data_wyslania ASC");
 	}
 	
 	

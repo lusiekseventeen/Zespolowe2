@@ -5,6 +5,7 @@ font-family: 'Lato';
 margin: 0px;
 }
 
+
 .strona{
 	max-width: 800px;
 	width: 100%;
@@ -56,11 +57,17 @@ margin: 0px;
     width: 100%;
 }
 
+.wydarzenie a
+{
+    text-decoration: none;
+    color: white;
+}
+
 .wydarzenie .opis{
 	background-color: #f6f1ed;
 	color: #30231d;
 	font-size: 1em;
-	padding: 1em;
+	padding: 0.5em;
 }
 
 .paneldolny{
@@ -69,7 +76,7 @@ margin: 0px;
 	width: inherit;
 	max-width:inherit;
 	height: 2em;
-	box-shadow: 1px 1px 10px #000;
+	box-shadow: 1px 1px 10px #ccc;
 	background-color: #30231d;
 	bottom: 0px;
 }
@@ -78,21 +85,27 @@ margin: 0px;
 	width: 100%;
 	background-color: blue;
 }
+
+.wydarzenie .eventInfo{
+	float: left;
+	width: 100%;
+	font-size: 2em;
+	color:black;
+}
+
 .paneldolny div:first-child{
 	border-left-style: none;
 }
 .paneldolny div{
 	float: left;
 	width: 24.33333%;
-	border-left-style: solid;
-	border-color: #f6f1ed;
-	border-width: 1%;
 }
 .paneldolny img{
 	width:auto;
-	height:100%;
+	height: 70%;
 	display: block;
     margin: 0 auto;
+    padding: 7%;
 }
 .logowanie{
 	background-color: #f6f1ed;
@@ -121,6 +134,18 @@ margin: 0px;
     cursor: pointer;
 	font-size: 1em;
 	width:100%;
+}
+
+.btn_ahref {
+    background-color: #30231d; 
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+	font-size: 1em;
+	width:auto;
 }
 
 .grupuj{
@@ -153,4 +178,71 @@ margin: 0px;
     display: inline-block;
     cursor: pointer;
 	padding: 10px 0px 10px 0px;
+}
+
+.lista_uczestnikow
+{
+	background-color: #30231d;
+	width: 100%;
+}
+
+.lista_uczestnikow p
+{
+	font-size: 0.7em;
+}
+
+form.users_form
+{
+	margin-bottom: 0;
+}
+
+.decision_buttons
+{
+	margin: 0em auto;
+    text-align: center;
+}
+
+.btnNo
+{
+	width: 20% !important;
+	display: inline-block;
+	margin: 5%;
+}
+
+.btnYes
+{
+	width: 20% !important;
+	display: inline-block;
+	margin: 5%;
+}
+
+.zgloszenie
+{
+	max-width: 800px;
+	width: 100%;
+	box-shadow: 1px 1px 2px #888888;
+	background-color: #30231d;
+	color: #f6f1ed;
+	border-radius: 3%;
+	position: fixed;
+
+}
+
+.zgloszenie img
+{
+    width: 100%;
+    max-height: 60%;
+}
+
+.zgloszenie a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.zgloszenie .opis{
+	background-color: #30231d;
+	color: #f6f1ed;
+	font-size: 1em;
+	padding: 0.5em;
 }

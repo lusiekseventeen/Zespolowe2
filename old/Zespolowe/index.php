@@ -5,6 +5,7 @@ $HEADER =
 <<<EOT
 <html>
 <head>
+
 	<link rel="stylesheet" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
