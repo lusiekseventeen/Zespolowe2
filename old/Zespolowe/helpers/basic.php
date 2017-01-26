@@ -149,6 +149,7 @@ function generujWydarzenie($one_row,$eventID)
 		$dbname = "events";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 
+
 	$WYDARZENIE = <<<EOT
 	<div class='wydarzenie'>
 	<p>{{ENAZWA}} <br> {{STATUS}}</p>
