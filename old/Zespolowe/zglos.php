@@ -9,6 +9,12 @@ $HEADER =
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body>
+	<div id="bar">
+		<div id="points">27&#9819;</div>
+	    <a href="http://localhost/pz/Event/Zespolowe2/old/Zespolowe/wyloguj.php"><img id="logout" src="./img/logout.png"></a>
+	    <img src="./img/logo.png">
+  	</div>
+  	<br>
 	<div class='strona'>
 		<div class='grupuj' id='ud'>
 			<p>Dodaj swoje zgłoszenie</p>
@@ -72,7 +78,7 @@ if(isset($_POST['dodaj'])){
 	}
 	
 }
-$FORM2 = (string) str_replace("{{IDEVENT}}", (string) $_POST['eventid'],  $FORM2);
+$FORM2 = (string) str_replace("{{IDEVENT}}", (string) $_POST['idevent'],  $FORM2);
 
 echo (string) str_replace("{{FORM}}", (string) $FORM2,  $HEADER);
 

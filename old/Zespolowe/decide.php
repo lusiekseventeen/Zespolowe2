@@ -11,6 +11,12 @@ $HEADER =
 	<script src="script/decide.js"></script>
 </head>
 <body>
+	<div id="bar">
+		<div id="points">27&#9819;</div>
+	    <a href="http://localhost/pz/Event/Zespolowe2/old/Zespolowe/wyloguj.php"><img id="logout" src="./img/logout.png"></a>
+	    <img src="./img/logo.png">
+  	</div>
+  	<br>
 	<div class='strona'>
 EOT;
 
@@ -37,6 +43,9 @@ else
 }
 
 $B = new Baza(); 
+
+$B->refreshDatabase();
+
 $result=$B->getApplies($eventID);
 $eventView = generujListeDecyzji($result,$eventID);
 

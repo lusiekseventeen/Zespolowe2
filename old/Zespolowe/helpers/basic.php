@@ -11,7 +11,7 @@ EOT;
 function generateWydarzenia($rows){
 	$WYDARZENIE = <<<EOT
 	<div class='wydarzenie'>
-	<a href='sprawdz.php?id={{ID}}'><p>@{{ENAZWA}} <br> czas do {{CZAS}}</p></a>
+	<a href='sprawdz.php?id={{ID}}'><p>@{{ENAZWA}} <br> {{STATUS}}</p></a>
 		{{MEDIA}}
 		{{PIOTREKSTOPKA}}
 		<p class='opis'>
@@ -19,6 +19,8 @@ function generateWydarzenia($rows){
 		</p>
 	</div>
 EOT;
+
+$CZAS = "czas do: ";
 
 $BRAKWYDARZEN = <<<EOT
 <div class='wydarzenie'>
@@ -69,8 +71,8 @@ EOT;
 		while($row = $rows->fetch_assoc()) {
 			$result=$conn->query("SELECT * FROM uzytkownik WHERE id=".$row['uzytkownik_id']);
 			$res = $result->fetch_assoc();
-			$temp= (string) str_replace("{{CZAS}}", (string) $row['data_zakonczenia'],  $WYDARZENIE);
-			$temp= (string) str_replace("{{ENAZWA}}", (string) $res['login'], $temp);
+	
+			$temp= (string) str_replace("{{ENAZWA}}", (string) $res['login'], $WYDARZENIE);
 			if(strpos(mime_content_type($row['foto_url']),'image')!==false){
 				$temp= (string) str_replace("{{MEDIA}}", (string) '<img src="{{EIMG}}" alt="foto">',  $temp);
 				$temp= (string) str_replace("{{EIMG}}", (string) $row['foto_url'],  $temp);
@@ -86,6 +88,18 @@ EOT;
 			}else if($conn->query("SELECT * FROM `relacja_event_uzytkownik` WHERE event_id=".$row['id']." AND uzytkownik_id=".$_SESSION['id'])->num_rows != 0 ){
 				$admin = 2;
 			}
+
+			if($row['czy_zakonczone'] == 1)
+			{
+				$temp= (string) str_replace("{{STATUS}}", "zakończone",  $temp);
+				$admin = 2;
+			}
+			else
+			{
+				$temp= (string) str_replace("{{STATUS}}", (string) $CZAS.$row['data_zakonczenia'],  $temp);
+			}
+
+
 			$temp= (string) str_replace("{{ID}}", (string) $row['id'],  $temp);
 			if($admin==0){
 				$temp= (string) str_replace("{{PIOTREKSTOPKA}}", (string) $STOPKAADMIN,  $temp);
@@ -137,14 +151,14 @@ function generujWydarzenie($one_row,$eventID)
 
 	$WYDARZENIE = <<<EOT
 	<div class='wydarzenie'>
-	<p>{{ENAZWA}} <br> CZAS DO {{CZAS}}</p>
+	<p>{{ENAZWA}} <br> {{STATUS}}</p>
 		{{MEDIA}}
 		{{PIOTREKSTOPKA}}
 		<p class='opis'>
 		{{EOPIS}}
 		</p>
 		<div class="lista_uczestnikow">
-		<p>Biorą udział: <br> &#9825; {{LICZBA_UCZESTNIKOW}}</p>
+		<p>{{WB}} udział: <br> &#9825; {{LICZBA_UCZESTNIKOW}}</p>
 		{{LISTA_UCZESTNIKOW}}<br><br>
 		</div>
 	</div>
@@ -177,6 +191,12 @@ EOT;
 	</div>
 EOT;
 
+$STOPKA_4 = <<<EOT
+	<div class="stopkaEvent">
+		
+	</div>
+EOT;
+
 	$LISTA = <<<EOT
 	<form method="POST" action="uzytkownik.php" class="users_form">
 		<input style="display:none" name="uzytkownik_id" value="{{UZYT_ID}}">
@@ -184,10 +204,12 @@ EOT;
 		</form>
 EOT;
 
+$CZAS = "czas do: ";
+
 
 	$row = $one_row->fetch_assoc();
-	$temp= (string) str_replace("{{CZAS}}", (string) $row['data_zakonczenia'],  $WYDARZENIE);
-	$temp= (string) str_replace("{{ENAZWA}}", (string) $row['login'], $temp);
+	
+	$temp= (string) str_replace("{{ENAZWA}}", (string) $row['login'], $WYDARZENIE);
 	if(strpos(mime_content_type($row['foto_url']),'image')!==false){
 		$temp= (string) str_replace("{{MEDIA}}", (string) '<img src="{{EIMG}}" alt="foto">',  $temp);
 		$temp= (string) str_replace("{{EIMG}}", (string) $row['foto_url'],  $temp);
@@ -206,6 +228,27 @@ EOT;
 		$admin = 3;
 	}
 
+	if($row['czy_zakonczone'] == 1)
+	{
+		$temp= (string) str_replace("{{STATUS}}", "zakończone",  $temp);
+		if($row['uzytkownik_id']===$_SESSION['id'] && $row['czy_rozdane'] == 0)
+		{
+			//
+		}
+		else if ($row['uzytkownik_id']===$_SESSION['id'] && $row['czy_rozdane'] == 1) 
+		{
+			$admin = 4;
+		}
+		else
+		{
+			$admin = 4;
+		}
+	}
+	else
+	{
+		$temp= (string) str_replace("{{STATUS}}", (string) $CZAS.$row['data_zakonczenia'],  $temp);
+	}
+
 	if($admin==1){
 		$temp= (string) str_replace("{{PIOTREKSTOPKA}}", (string) $STOPKA_1,  $temp);
 		$temp =(string) str_replace("{{IDEVENT}}", (string) $eventID,  $temp);
@@ -215,32 +258,85 @@ EOT;
 	}else if ($admin==3){
 		$temp= (string) str_replace("{{PIOTREKSTOPKA}}", (string) $STOPKA_3,  $temp);
 		$temp = (string) str_replace("{{IDEVENT}}", (string) $eventID,  $temp);
+	}else if ($admin==4){
+		$temp= (string) str_replace("{{PIOTREKSTOPKA}}", (string) $STOPKA_4,  $temp);
+		$temp = (string) str_replace("{{IDEVENT}}", (string) $eventID,  $temp);
 	}
 
-	$usr_arr = $conn->query("SELECT uzytkownik.login, uzytkownik.id FROM uzytkownik INNER JOIN relacja_event_uzytkownik ON relacja_event_uzytkownik.uzytkownik_id = uzytkownik.id WHERE relacja_event_uzytkownik.event_id =".$eventID);
-	
-	$users = "";
-	$users_count = $usr_arr->num_rows;
-	$forms = "";
-	$temp_form = "";
 
-	if ($usr_arr->num_rows > 0) 
+	if($row['czy_rozdane'] == 1)
 	{
-		while($row = $usr_arr->fetch_assoc()) 
+		$usr_arr = $conn->query("SELECT uzytkownik.login, uzytkownik.id FROM uzytkownik INNER JOIN relacja_event_uzytkownik ON relacja_event_uzytkownik.uzytkownik_id = uzytkownik.id WHERE relacja_event_uzytkownik.czy_zatwierdzona = 1 AND relacja_event_uzytkownik.event_id =".$eventID." ORDER BY relacja_event_uzytkownik.punkty DESC");
+	
+		$users = "";
+		$users_count = $usr_arr->num_rows;
+		$forms = "";
+		$temp_form = "";
+		$k = 1;
+
+		if ($usr_arr->num_rows > 0) 
 		{
-			$temp_form = $LISTA;
-			$temp_form = (string) str_replace("{{UZYT_ID}}", (string) $row['id'],  $temp_form);
-			$temp_form = (string) str_replace("{{LOGIN_UZYT}}", "@".$row['login'],  $temp_form);
-			$users .= $temp_form;
+			while($row = $usr_arr->fetch_assoc()) 
+			{
+				$temp_form = $LISTA;
+				$temp_form = (string) str_replace("{{UZYT_ID}}", (string) $row['id'],  $temp_form);
+				$temp_form = (string) str_replace("{{LOGIN_UZYT}}", $k.". @".$row['login'],  $temp_form);
+				$users .= $temp_form;
+				$k++;
+			}
 		}
+		else
+		{
+			if($admin == 4)
+			{
+				$users = "Nikt nie wziął udziału :(";
+			}
+			else
+			{
+				$users = "Nikt jeszcze nie wziął udziału :(";
+			}
+		}
+
+		$temp = (string) str_replace("{{WB}}", (string) "Wzieli",  $temp);
+		$temp = (string) str_replace("{{LICZBA_UCZESTNIKOW}}", (string) $users_count,  $temp);
+		$temp = (string) str_replace("{{LISTA_UCZESTNIKOW}}", (string) $users,  $temp);
 	}
 	else
 	{
-		$users = "Nikt jeszcze nie wziął udziału :(";
-	}
+		$usr_arr = $conn->query("SELECT uzytkownik.login, uzytkownik.id FROM uzytkownik INNER JOIN relacja_event_uzytkownik ON relacja_event_uzytkownik.uzytkownik_id = uzytkownik.id WHERE relacja_event_uzytkownik.event_id =".$eventID);
+	
+		$users = "";
+		$users_count = $usr_arr->num_rows;
+		$forms = "";
+		$temp_form = "";
 
-	$temp = (string) str_replace("{{LICZBA_UCZESTNIKOW}}", (string) $users_count,  $temp);
-	$temp = (string) str_replace("{{LISTA_UCZESTNIKOW}}", (string) $users,  $temp);
+		if ($usr_arr->num_rows > 0) 
+		{
+			while($row = $usr_arr->fetch_assoc()) 
+			{
+				$temp_form = $LISTA;
+				$temp_form = (string) str_replace("{{UZYT_ID}}", (string) $row['id'],  $temp_form);
+				$temp_form = (string) str_replace("{{LOGIN_UZYT}}", "@".$row['login'],  $temp_form);
+				$users .= $temp_form;
+			}
+		}
+		else
+		{
+			if($admin == 4)
+			{
+				$users = "Nikt nie wziął udziału :(";
+			}
+			else
+			{
+				$users = "Nikt jeszcze nie wziął udziału :(";
+			}
+		}
+
+		$temp = (string) str_replace("{{WB}}", (string) "Biorą",  $temp);
+		$temp = (string) str_replace("{{LICZBA_UCZESTNIKOW}}", (string) $users_count,  $temp);
+		$temp = (string) str_replace("{{LISTA_UCZESTNIKOW}}", (string) $users,  $temp);
+
+	}
 
 	return $temp;
 }
@@ -250,9 +346,9 @@ function generujListeDecyzji($rows,$eventID)
 
 	$servername = "localhost";
 		$username = "root";
-		$password = "1234";
+		$password = "foxikrl";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname);
+		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
 		
 	$ZGLOSZENIE = <<<EOT
 	<div class="zgloszenie" style="z-index: {{Z_INDEX}}">
@@ -275,7 +371,19 @@ $BRAKZGLOSZEN = <<<EOT
 	</div>
 EOT;
 
+$PUNKTY = <<<EOT
+	<div class="zgloszenie">
+		<p class="opis">
+		Rozdziel punkty!
+		</p>
+		<div class="decision_buttons">
+			<img class="btnNo" onclick="fire_points({{APP_ID}})" src="img/podium.png"/>
+		</div>
+	</div>
+EOT;
 
+	$result = $conn->query("SELECT czy_zakonczone, czy_rozdane FROM event WHERE id=".$eventID);
+	$res = $result->fetch_assoc();
 
 	$ALL = "";
 	$z_idx = $rows->num_rows;
@@ -296,9 +404,26 @@ EOT;
 			$ALL = $ALL.$temp;
 			$z_idx--;
 		}
-		$ALL .= $BRAKZGLOSZEN;
-	} else {
-		$ALL = $BRAKZGLOSZEN;
+
+		if($res['czy_zakonczone'] == 1 && $res['czy_rozdane'] == 0)
+		{
+			$ALL .= $PUNKTY;
+		}
+		else
+		{
+			$ALL .= $BRAKZGLOSZEN;
+		}
+	} 
+	else 
+	{
+		if($res['czy_zakonczone'] == 1 && $res['czy_rozdane'] == 0)
+		{
+			$ALL= (string) str_replace("{{APP_ID}}", (string) $eventID,  $PUNKTY);
+		}
+		else
+		{
+			$ALL = $BRAKZGLOSZEN;
+		}
 	}
 	return $ALL;
 }

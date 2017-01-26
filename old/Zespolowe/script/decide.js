@@ -27,6 +27,19 @@ function fire_no(uid, eid)
   http.send(params);
 }
 
+function fire_points(eid)
+{
+  var http = new XMLHttpRequest();
+  var url = "helpers/decision.php";
+  var params = "eid="+eid;
+  http.open("POST", url, true);
+
+  //Send the proper header information along with the request
+  http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  http.send(params);
+}
+
 $(document).ready(function(){
     var $all_applies = $(".zgloszenie");
     $(".btnNo").click(function(){
