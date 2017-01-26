@@ -1,6 +1,10 @@
 <?php	
 	require_once("sesja.php");
 	require_once("helpers/basic.php");
+	require_once("sql/baza.php");
+$B = new Baza();
+$B->refreshDatabase();
+
 $HEADER = 
 <<<EOT
 <html>
@@ -28,8 +32,7 @@ EOT;
 
 echo $HEADER;
 echo $paneldolny;
-require_once("sql/baza.php");
-$B = new Baza(); 
+
 $result=$B->getEventsUserTagsList($_SESSION['id']);
 $ALLYOUR = generateWydarzenia($result);
 echo (string) str_replace("{{HTAG}}", (string) $ALLYOUR,  $HTAG);

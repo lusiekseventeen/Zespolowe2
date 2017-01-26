@@ -41,6 +41,9 @@ else
 }
 
 $B = new Baza(); 
+
+$B->refreshDatabase();
+
 $result=$B->getSingleEvent($eventID);
 $eventView = generujWydarzenie($result,$eventID);
 

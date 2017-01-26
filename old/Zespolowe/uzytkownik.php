@@ -42,6 +42,8 @@ echo $paneldolny;
 require_once("sql/baza.php");
 $B = new Baza(); 
 
+$B->refreshDatabase();
+
 $TWOJE = (string) str_replace("{{USER}}", (string) $_POST['user_view'],  $TWOJE);
 $UDZIAL = (string) str_replace("{{USER}}", (string) $_POST['user_view'],  $UDZIAL);
 
