@@ -131,9 +131,9 @@ function generujWydarzenie($one_row,$eventID)
 
 	$servername = "localhost";
 		$username = "root";
-		$password = "foxikrl";
+		$password = "1234";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname, '3308');	
+		$conn = new mysqli($servername, $username, $password, $dbname);	
 
 	$WYDARZENIE = <<<EOT
 	<div class='wydarzenie'>
