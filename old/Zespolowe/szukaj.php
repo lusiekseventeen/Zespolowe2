@@ -33,6 +33,9 @@ $UDZIAL = <<<EOT
 EOT;
 require_once("sql/baza.php");
 $B = new Baza(); 
+
+$B->refreshDatabase();
+
 if(isset($_POST['dodaj'])){
 	$B->joinUsetToTag($_SESSION['id'],$_POST['tag']);
 }

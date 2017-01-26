@@ -37,6 +37,9 @@ echo $HEADER;
 echo $paneldolny;
 require_once("sql/baza.php");
 $B = new Baza(); 
+
+$B->refreshDatabase();
+
 $result=$B->getEventsStworzonychList($_SESSION['id']);
 $ALLYOUR = generateWydarzenia($result);
 echo (string) str_replace("{{TWOJE}}", (string) $ALLYOUR,  $TWOJE);

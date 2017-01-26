@@ -3,9 +3,9 @@ class Baza{
 	function __construct(){ 
 		$servername = "localhost";
 		$username = "root";
-		$password = "1234";
+		$password = "foxikrl";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname);
+		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
 		}	 
@@ -145,10 +145,10 @@ class Baza{
 	function getApplies($id){
 		return $this->DB->query("SELECT * FROM `relacja_event_uzytkownik` WHERE event_id = ".$id." AND status = 0 ORDER BY data_wyslania ASC");
 	}
-	
-	
-	
-	
-	
+
+	function refreshDatabase(){
+		return $this->DB->query("UPDATE event SET czy_zakonczone = 1 WHERE DATE(NOW()) > DATE(data_zakonczenia)");
+	}
+		
 }
 ?>
