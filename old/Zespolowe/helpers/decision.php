@@ -3,9 +3,9 @@
 	{
 		$servername = "localhost";
 		$username = "root";
-		$password = "foxikrl";
+		$password = "1234";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
+		$conn = new mysqli($servername, $username, $password, $dbname);
 
 		if($_POST['dec'] == "yes")
 		{
@@ -22,9 +22,9 @@
 	{
 		$servername = "localhost";
 		$username = "root";
-		$password = "foxikrl";
+		$password = "1234";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
+		$conn = new mysqli($servername, $username, $password, $dbname);
 
 		$points = array(15, 10, 5);
 		$i = 0;
