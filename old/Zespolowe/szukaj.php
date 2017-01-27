@@ -11,10 +11,10 @@ $HEADER =
 <body>
 	<div id="bar">
 		<div id="points">{{POINTS}}&#9819;</div>
-	    <a href="http://localhost/pz/Event/Zespolowe2/old/Zespolowe/wyloguj.php"><img id="logout" src="./img/logout.png"></a>
+	    <a href="./wyloguj.php"><img id="logout" src="./img/logout.png"></a>
 	    <img src="./img/logo.png">
   	</div>
-  	<br><br><br><br>
+
 	<div class='strona'>
 EOT;
 
