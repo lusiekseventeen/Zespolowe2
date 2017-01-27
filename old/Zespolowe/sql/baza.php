@@ -3,9 +3,9 @@ class Baza{
 	function __construct(){ 
 		$servername = "localhost";
 		$username = "root";
-		$password = "1234";
+		$password = "foxikrl";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname);
+		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);
 		}	 
@@ -148,6 +148,12 @@ class Baza{
 
 	function refreshDatabase(){
 		return $this->DB->query("UPDATE event SET czy_zakonczone = 1 WHERE NOW() > data_zakonczenia");
+	}
+
+	function getPoints($id){
+		$row = $this->DB->query("SELECT SUM(punkty) as pkt FROM relacja_event_uzytkownik WHERE uzytkownik_id =".$id);
+		$x = $row->fetch_assoc();
+		return $x['pkt'];
 	}
 		
 }

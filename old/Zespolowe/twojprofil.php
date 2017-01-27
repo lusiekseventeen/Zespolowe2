@@ -10,7 +10,7 @@ $HEADER =
 </head>
 <body>
 	<div id="bar">
-		<div id="points">27&#9819;</div>
+		<div id="points">{{POINTS}}&#9819;</div>
 	    <a href="http://localhost/pz/Event/Zespolowe2/old/Zespolowe/wyloguj.php"><img id="logout" src="./img/logout.png"></a>
 	    <img src="./img/logo.png">
   	</div>
@@ -39,10 +39,14 @@ $UDZIAL = <<<EOT
 </div>
 EOT;
 
-echo $HEADER;
-echo $paneldolny;
 require_once("sql/baza.php");
-$B = new Baza(); 
+$B = new Baza();
+
+$points = $B->getPoints($_SESSION['id']);
+
+echo (string) str_replace("{{POINTS}}", (string) $points,  $HEADER);
+
+echo $paneldolny;
 
 $B->refreshDatabase();
 

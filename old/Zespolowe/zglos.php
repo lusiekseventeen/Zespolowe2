@@ -10,7 +10,7 @@ $HEADER =
 </head>
 <body>
 	<div id="bar">
-		<div id="points">27&#9819;</div>
+		<div id="points">{{POINTS}}&#9819;</div>
 	    <a href="http://localhost/pz/Event/Zespolowe2/old/Zespolowe/wyloguj.php"><img id="logout" src="./img/logout.png"></a>
 	    <img src="./img/logo.png">
   	</div>
@@ -42,8 +42,10 @@ $FOOTER = <<<EOT
 </html>
 EOT;
 
+require_once("sql/baza.php");
+$B = new Baza();
+
 if(isset($_POST['dodaj'])){
-	require_once("sql/baza.php");
 	$image = $_FILES['zdjecie'];
     $imagename = $_FILES['zdjecie']['name'];
     $imagetype = $_FILES['zdjecie']['type'];
@@ -67,8 +69,6 @@ if(isset($_POST['dodaj'])){
 		else {
 			echo "Failed to upload your image.";
 		}
-		
-		$B = new Baza();
 
 		$x = $B->dodajZgloszenie($_SESSION['id'], $_POST['eventid'], $_POST['comment'], date('Y-m-d H:i:s'),$imagePath.$imagename);
 		
@@ -80,7 +80,12 @@ if(isset($_POST['dodaj'])){
 }
 $FORM2 = (string) str_replace("{{IDEVENT}}", (string) $_POST['idevent'],  $FORM2);
 
-echo (string) str_replace("{{FORM}}", (string) $FORM2,  $HEADER);
+
+$HEADER = (string) str_replace("{{FORM}}", (string) $FORM2,  $HEADER);
+
+$points = $B->getPoints($_SESSION['id']);
+
+echo (string) str_replace("{{POINTS}}", (string) $points,  $HEADER);
 
 echo $paneldolny;
 

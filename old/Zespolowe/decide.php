@@ -12,11 +12,11 @@ $HEADER =
 </head>
 <body>
 	<div id="bar">
-		<div id="points">27&#9819;</div>
+		<div id="points">{{POINTS}}&#9819;</div>
 	    <a href="http://localhost/pz/Event/Zespolowe2/old/Zespolowe/wyloguj.php"><img id="logout" src="./img/logout.png"></a>
 	    <img src="./img/logo.png">
   	</div>
-  	<br>
+  	<br><br><br><br>
 	<div class='strona'>
 EOT;
 
@@ -26,11 +26,15 @@ $FOOTER = <<<EOT
 </html>
 EOT;
 
-
-echo $HEADER;
-echo $paneldolny;
-
 require_once("sql/baza.php");
+$B = new Baza(); 
+
+$B->refreshDatabase();
+$points = $B->getPoints($_SESSION['id']);
+
+echo (string) str_replace("{{POINTS}}", (string) $points,  $HEADER);
+
+echo $paneldolny;
 
 $eventID = "";
 if(isset($_GET['id']))
@@ -41,10 +45,6 @@ else
 {
 	$eventID = $_POST['idevent'];
 }
-
-$B = new Baza(); 
-
-$B->refreshDatabase();
 
 $result=$B->getApplies($eventID);
 $eventView = generujListeDecyzji($result,$eventID);
