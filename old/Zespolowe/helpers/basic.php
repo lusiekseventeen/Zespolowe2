@@ -63,9 +63,9 @@ EOT;
 
 	$servername = "localhost";
 		$username = "root";
-		$password = "foxikrl";
+		$password = "1234";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
+		$conn = new mysqli($servername, $username, $password, $dbname);
 	$ALL = "";
 	if ($rows->num_rows > 0) {
 		while($row = $rows->fetch_assoc()) {
@@ -145,9 +145,9 @@ function generujWydarzenie($one_row,$eventID)
 
 	$servername = "localhost";
 		$username = "root";
-		$password = "foxikrl";
+		$password = "1234";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname, '3308');	
+		$conn = new mysqli($servername, $username, $password, $dbname);	
 
 
 	$WYDARZENIE = <<<EOT
@@ -347,9 +347,9 @@ function generujListeDecyzji($rows,$eventID)
 
 	$servername = "localhost";
 		$username = "root";
-		$password = "foxikrl";
+		$password = "1234";
 		$dbname = "events";
-		$conn = new mysqli($servername, $username, $password, $dbname, '3308');
+		$conn = new mysqli($servername, $username, $password, $dbname);
 		
 	$ZGLOSZENIE = <<<EOT
 	<div class="zgloszenie" style="z-index: {{Z_INDEX}}">
